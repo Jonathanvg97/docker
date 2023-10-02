@@ -1,9 +1,26 @@
 {
+    "version": 2, 
     "builds": [
       {
-        "src": "docker-compose.yml", 
-        "use": "@vercel/docker"
+        "src": "Dockerfile", 
+        "use": "@now/static-build", 
+        "config": { "maxLambdaSize": "10mb" } 
       }
-    ]
+    ],
+    "routes": [
+      { "handle": "filesystem" },
+      { "src": "/(.*)", "dest": "/index.html" }
+    ],
+    "env": {
+      "MYSQLDB_HOST": "mysqldb",
+      "MYSQLDB_USER": "fazt",
+      "MYSQLDB_PASSWORD": "123456",
+      "MYSQLDB_ROOT_PASSWORD": "123456",
+      "MYSQLDB_DATABASE": "fazt_db",
+      "MYSQLDB_LOCAL_PORT": "3306",
+      "MYSQLDB_DOCKER_PORT": "3306",
+      "NODE_LOCAL_PORT": "3000",
+      "NODE_DOCKER_PORT": "3000"
+    }
   }
   
