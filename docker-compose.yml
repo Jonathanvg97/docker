@@ -2,8 +2,7 @@ version: "3.8"
 
 services:
   mysqldb:
-    image: mysql:5.7
-    # restart: unless-stopped
+    image: mysql:8.1.0
     env_file: ./.env
     environment:
       - MYSQL_USER=$MYSQLDB_USER
@@ -18,10 +17,7 @@ services:
   app:
     depends_on:
       - mysqldb
-    links:
-      - mysqldb
     build: .
-    # restart: unless-stopped
     env_file: ./.env
     ports:
       - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
@@ -32,6 +28,9 @@ services:
       - DB_NAME=$MYSQLDB_DATABASE
       - DB_PORT=$MYSQLDB_DOCKER_PORT
     volumes:
+      - mysql-data:/var/lib/mysql
       - .:/myapp
     command: sh -c "npm install && npm run dev"
 
+volumes:
+  mysql-data:
