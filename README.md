@@ -11,4 +11,4 @@ This is a simple example of a docker-compose file that creates a nodejs and mysq
 ```sh
 docker-compose up # to execute development
 docker-compose -f docker-compose.prod.yml up # to execute production
-```
+```# docker
